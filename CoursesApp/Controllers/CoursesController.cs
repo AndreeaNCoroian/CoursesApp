@@ -35,7 +35,7 @@ namespace CoursesApp.Controllers
 
             if (course == null)
             {
-                return NotFound();
+                return NotFound("Course does not exist!");
             }
 
             return course;
@@ -62,7 +62,7 @@ namespace CoursesApp.Controllers
             {
                 if (!CourseExists(id))
                 {
-                    return NotFound();
+                    return NotFound("This course does not exist!");
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace CoursesApp.Controllers
             var course = await _context.Courses.FindAsync(id);
             if (course == null)
             {
-                return NotFound();
+                return NotFound("This course does not exist!");
             }
 
             _context.Courses.Remove(course);
