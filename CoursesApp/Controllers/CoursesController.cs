@@ -21,6 +21,13 @@ namespace CoursesApp.Controllers
         }
 
         // GET: api/Courses
+        /// <summary>
+        /// Gets a list of all the courses.
+        /// </summary>
+        /// <param name="from">Filter courses added from this date time (inclusive). Leave empty for no upper limit.</param>
+        /// <param name="to">Filter courses added up to this date time (inclusive). Leave empty for no lower limit.</param>
+        /// <returns>A list of all courses.</returns>
+        /// <response code="201">Returns the list of courses.</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses(DateTime? from = null, DateTime? to = null)
         {
@@ -38,7 +45,16 @@ namespace CoursesApp.Controllers
         }
 
         // GET: api/Courses/5
+        /// <summary>
+        /// Returns all details for a specific course.
+        /// </summary>
+        /// <param name="id">Get course details for a specified course id.</param>
+        /// <returns>Complete details of the course with specific id.</returns>
+        /// <response code="201">Returns the course with specified id.</response>
+        /// <response code="404">Not found, if there's no course with specified id.</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Course>> GetCourse(long id)
         {
             var course = await _context.Courses.FindAsync(id);
@@ -52,9 +68,23 @@ namespace CoursesApp.Controllers
         }
 
         // PUT: api/Courses/5
+        /// <summary>
+        /// Updates a specific course.
+        /// </summary>
+        /// <param name="id">The id of the course to be updated.</param>
+        /// <param name="course">The course that will be updated.</param>
+        /// <returns>The updated course.</returns>
+        /// <response code = "201">When the course was updated succesfully.</response>
+        /// <response code = "404">When there's no course with given id.</response>
+        /// <response code = "400">When the given id is not equal with course id.</response>
+        /// <response code = "204">Request has succeded.</response>
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PutCourse(long id, Course course)
         {
             if (id != course.Id)
@@ -84,9 +114,21 @@ namespace CoursesApp.Controllers
         }
 
         // POST: api/Courses
+        /// <summary>
+        /// Creates a new entry for courses.
+        /// </summary>
+        /// <param name="course">The course to be added.</param>
+        /// <returns>The new added course.</returns>
+        ///<response code = "201"> Returns the newly created course.</response>
+        ///<response code = "400"> If date added is greater than current date. or
+        ///                        If course name is empty. or
+        ///                        If start date for a course is greater than current date. or
+        ///                        If duration in minutes for a course is lower than 0. </response>
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
             _context.Courses.Add(course);
@@ -96,7 +138,15 @@ namespace CoursesApp.Controllers
         }
 
         // DELETE: api/Courses/5
+        /// <summary>
+        /// Deletes a specific course.
+        /// </summary>
+        /// <param name="id">The id of the course to be deleted.</param>
+        /// <response code = "201">When the course was deleted succesfully.</response>
+        /// <response code = "400">When the course was not deleted succesfully.</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Course>> DeleteCourse(long id)
         {
             var course = await _context.Courses.FindAsync(id);

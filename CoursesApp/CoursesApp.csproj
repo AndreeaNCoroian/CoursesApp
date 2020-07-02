@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200701210315_InitialCreate.cs" />
     <Compile Remove="Migrations\20200701210315_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200702210941_AddCommentsToCourses.cs" />
+    <Compile Remove="Migrations\20200702210941_AddCommentsToCourses.Designer.cs" />
   </ItemGroup>
 
   <PropertyGroup>

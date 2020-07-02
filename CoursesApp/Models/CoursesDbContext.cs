@@ -10,5 +10,6 @@ namespace CoursesApp.Models
         }
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     }
 }
