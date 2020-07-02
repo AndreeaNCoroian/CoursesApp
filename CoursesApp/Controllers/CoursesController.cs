@@ -22,9 +22,19 @@ namespace CoursesApp.Controllers
 
         // GET: api/Courses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<Course>>> GetCourses(DateTime? from = null, DateTime? to = null)
         {
-            return await _context.Courses.ToListAsync();
+            IQueryable<Course> result = _context.Courses;
+            if (from != null)
+            {
+                result = result.Where(f => from <= f.DateAdded);
+            }
+            if (to != null)
+            {
+                result = result.Where(f => f.DateAdded <= to);
+            }
+            var resultList= await result.OrderBy(f => f.Name).ToListAsync();
+            return resultList;
         }
 
         // GET: api/Courses/5
