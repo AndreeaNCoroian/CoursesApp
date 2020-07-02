@@ -77,7 +77,7 @@ namespace CoursesApp.Controllers
         /// <response code = "201">When the course was updated succesfully.</response>
         /// <response code = "404">When there's no course with given id.</response>
         /// <response code = "400">When the given id is not equal with course id.</response>
-        /// <response code = "204">Request has succeded.</response>
+        /// <response code = "204">Request has succeeded.</response>
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]

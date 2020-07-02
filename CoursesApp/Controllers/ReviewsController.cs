@@ -21,6 +21,10 @@ namespace CoursesApp.Controllers
         }
 
         // GET: api/Reviews
+        /// <summary>
+        /// Gets a list of all reviews.
+        /// </summary>
+        /// <returns>A list of reviews.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
         {
@@ -28,7 +32,16 @@ namespace CoursesApp.Controllers
         }
 
         // GET: api/Reviews/5
+        /// <summary>
+        /// Gets the review with specified id.
+        /// </summary>
+        /// <param name="id">Review id.</param>
+        /// <returns>Returns a specific review.</returns>
+        ///<response code= "201">Returns specific review</response>
+        ///<response code="404">Not found, if there's no review with specified id.</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Review>> GetReview(long id)
         {
             var review = await _context.Reviews.FindAsync(id);
@@ -42,9 +55,23 @@ namespace CoursesApp.Controllers
         }
 
         // PUT: api/Reviews/5
+        /// <summary>
+        /// Updates the review with specified id.
+        /// </summary>
+        /// <param name="id">The id of the review to be updated.</param>
+        /// <param name="review">Review that will be updated.</param>
+        /// <returns>Updated review.</returns>
+        /// <response code = "201">When the review was updated succesfully.</response>
+        /// <response code = "404">When there's no review with given id.</response>
+        /// <response code = "400">When the given id is not equal with review id.</response>
+        /// <response code = "204">Request has succeeded.</response>
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PutReview(long id, Review review)
         {
             if (id != review.id)
@@ -74,9 +101,19 @@ namespace CoursesApp.Controllers
         }
 
         // POST: api/Reviews
+        /// <summary>
+        /// Creates a new review.
+        /// </summary>
+        /// <param name="review">The review that you want to add.</param>
+        /// <returns>The review that was created.</returns>
+        ///<response code = "201"> Returns the newly created review.</response>
+        ///<response code = "400"> If review content is empty. or
+        ///                        If review content is overpasses 500 characters.</response>
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Review>> PostReview(Review review)
         {
             _context.Reviews.Add(review);
@@ -86,7 +123,16 @@ namespace CoursesApp.Controllers
         }
 
         // DELETE: api/Reviews/5
+        /// <summary>
+        /// Deletes a specific review.
+        /// </summary>
+        /// <param name="id">The id of the review that you want to delete.</param>
+        /// <returns></returns>
+        /// <response code = "201">When the review was deleted succesfully.</response>
+        /// <response code = "400">When the review was not deleted succesfully.</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Review>> DeleteReview(long id)
         {
             var review = await _context.Reviews.FindAsync(id);
