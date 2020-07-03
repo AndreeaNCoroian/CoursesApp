@@ -7,7 +7,7 @@ namespace CoursesApp.Models
 {
     public class Review
     {
-        public long Id { get; set; }
+        public long id { get; set; }
         public string Content { get; set; } 
         public long CourseId { get; set; }
         public Course Course { get; set; }
