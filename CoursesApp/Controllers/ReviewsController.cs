@@ -35,7 +35,7 @@ namespace CoursesApp.Controllers
         /// <summary>
         /// Gets the review with specified id.
         /// </summary>
-        /// <param name="id">Review id.</param>
+        /// <param name="id">Review d.</param>
         /// <returns>Returns a specific review.</returns>
         ///<response code= "201">Returns specific review</response>
         ///<response code="404">Not found, if there's no review with specified id.</response>
@@ -74,7 +74,7 @@ namespace CoursesApp.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PutReview(long id, Review review)
         {
-            if (id != review.id)
+            if (id != review.Id)
             {
                 return BadRequest();
             }
@@ -119,7 +119,7 @@ namespace CoursesApp.Controllers
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReview", new { id = review.id }, review);
+            return CreatedAtAction("GetReview", new { id = review.Id }, review);
         }
 
         // DELETE: api/Reviews/5
@@ -149,7 +149,7 @@ namespace CoursesApp.Controllers
 
         private bool ReviewExists(long id)
         {
-            return _context.Reviews.Any(e => e.id == id);
+            return _context.Reviews.Any(e => e.Id == id);
         }
     }
 }
