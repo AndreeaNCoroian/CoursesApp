@@ -27,7 +27,7 @@ namespace CoursesApp.Validators
 				.WithMessage("Start date for a course can't be greater than current date.");
 
 			RuleFor(x => x.DurationInMin)
-				.LessThan(0)
+				.GreaterThan(0)
 				.WithMessage("Course duration in minutes can't be lower than 0.");
 		}
 	}
