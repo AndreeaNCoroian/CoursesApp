@@ -15,18 +15,8 @@ namespace CoursesApp.Models
         {
             using (var context = new CoursesDbContext(serviceProvider.GetRequiredService<DbContextOptions<CoursesDbContext>>()))
             {
-                if (!context.Users.Any())
-                {
-                    context.Users.Add(new User
-                    {
-                        FirstName = "First",
-                        LastName = "Last",
-                        Username = "FirstUsername",
-                        Password = HashUtils.GetHashString("parolasigura")
-                    });
-                    context.SaveChanges();
-                }
-                // Look for any courses.
+ 
+                //Looks for any Course
                 if (context.Courses.Any())
                 {
                     return;   // DB table has been seeded
