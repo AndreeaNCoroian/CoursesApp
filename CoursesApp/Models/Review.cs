@@ -10,5 +10,6 @@ namespace CoursesApp.Models
         public long Id { get; set; }
         public string Content { get; set; }
         public Course Course { get; set; }
+        public User AddedBy { get; set; }
     }
 }

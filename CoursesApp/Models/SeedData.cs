@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CoursesApp.Helpers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace CoursesApp.Models
@@ -13,6 +15,17 @@ namespace CoursesApp.Models
         {
             using (var context = new CoursesDbContext(serviceProvider.GetRequiredService<DbContextOptions<CoursesDbContext>>()))
             {
+                if (!context.Users.Any())
+                {
+                    context.Users.Add(new User
+                    {
+                        FirstName = "First",
+                        LastName = "Last",
+                        Username = "FirstUsername",
+                        Password = HashUtils.GetHashString("parolasigura")
+                    });
+                    context.SaveChanges();
+                }
                 // Look for any courses.
                 if (context.Courses.Any())
                 {
