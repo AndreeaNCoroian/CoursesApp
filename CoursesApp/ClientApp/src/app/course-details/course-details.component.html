@@ -1,0 +1,58 @@
+
+<p *ngIf="!course"><em>Loading...</em></p>
+
+<a [routerLink]="['/fetch-data']" routerLinkActive="active">Back</a>
+<br />
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="course">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ course.name }}</td>
+        </tr>
+
+        <tr>
+            <th>Category</th>
+            <td>{{ course.category }}</td>
+        </tr>
+        <tr>
+            <th>Difficulty</th>
+            <td>{{ course.difficulty }}</td>
+        </tr>
+
+        <tr>
+            <th>Duration in minutes</th>
+            <td>{{ course.durationInMin }}</td>
+        </tr>
+
+        <tr>
+            <th>Date added</th>
+            <td>{{ course.dateAdded }}</td>
+        </tr>
+
+        <tr>
+            <th>Start date</th>
+            <td>{{ course.startDate }}</td>
+        </tr>
+
+        <tr>
+            <th>End date</th>
+            <td>{{ course.endDate }}</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<h2>Reviews</h2>
+<table *ngIf="course">
+    <thead>
+        <tr>
+            <th>Content</th>
+        </tr>
+    </thead>
+
+    <tr *ngFor="let review of course.reviews">
+        <td>{{review.content}}</td>
+    </tr>
+</table>
+
+

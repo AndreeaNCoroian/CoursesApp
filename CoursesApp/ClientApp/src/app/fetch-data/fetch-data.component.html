@@ -1,27 +1,8 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<h1 id="tableLabel">Courses</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.date }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
-        </tr>
-    </tbody>
-</table>
+<p *ngIf="!courses"><em>Loading...</em></p>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="courses">
     <thead>
@@ -31,6 +12,9 @@
             <th>Difficulty</th>
             <th>Duration in minutes</th>
             <th>Date added</th>
+            <th>Number of reviews</th>
+            <th>Operations</th>
+
         </tr>
     </thead>
     <tbody>
@@ -40,6 +24,12 @@
             <td>{{ course.difficulty }}</td>
             <td>{{ course.durationInMin }}</td>
             <td>{{ course.dateAdded }}</td>
+            <td>{{ course.numberOfReviews }}</td>
+            <td>
+                <a class = "btn btn-primary" [routerLink]="['/fetch-data', course.id]" routerLinkActive="active">Details</a> |
+                <a class = "btn btn-info">Edit</a> |
+                <a class = "btn btn-danger" (click)="delete(course.id)">Delete</a>
+            </td>
         </tr>
     </tbody>
 </table>

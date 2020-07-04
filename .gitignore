@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/CoursesApp/wwwroot/dist
+/CoursesApp/ClientApp/package-lock.json

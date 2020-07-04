@@ -6,15 +6,10 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-    public forecasts: WeatherForecast[];
     public courses: Course[];
     public name: string = "test";
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-    }, error => console.error(error));
-
       this.loadCourses();
     }
 
@@ -23,6 +18,20 @@ export class FetchDataComponent {
             this.courses = result;
             console.log(this.courses);
         }, error => console.error(error));
+    }
+
+    delete(courseId: string) {
+        if (confirm('Are you sure you want to delete the course with id ' + courseId + '?')) {
+            this.http.delete(this.baseUrl + 'api/Courses/' + courseId)
+                    .subscribe
+                    (
+                        result => {
+                            alert('Course successfully deleted!');
+                            this.loadCourses();
+                    },
+                     error => alert('Cannot delete course. Maybe it has reviews.')
+                    )
+        }
     }
 
     submit() {
@@ -38,20 +47,14 @@ export class FetchDataComponent {
             console.log('Success!');
             this.loadCourses();
         },
-            error => {
-                if (error.status == 400) {
-                    console.log(error.error.errors)
-                }
-            });
+        error => {
+            if (error.status == 400) {
+                console.log(error.error.errors)
+            }
+        });
     }
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
 
 interface Course {
     id: number;

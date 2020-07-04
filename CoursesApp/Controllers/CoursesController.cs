@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CoursesApp.Models;
+using CoursesApp.ViewModels;
 
 namespace CoursesApp.Controllers
 {
@@ -29,7 +30,7 @@ namespace CoursesApp.Controllers
         /// <returns>A list of all courses.</returns>
         /// <response code="201">Returns the list of courses.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses(DateTime? from = null, DateTime? to = null)
+        public async Task<ActionResult<IEnumerable<CourseWithNumberOfReviews>>> GetCourses(DateTime? from = null, DateTime? to = null)
         {
             IQueryable<Course> result = _context.Courses;
             if (from != null)
@@ -40,7 +41,11 @@ namespace CoursesApp.Controllers
             {
                 result = result.Where(f => f.DateAdded <= to);
             }
-            var resultList= await result.OrderBy(f => f.Name).ToListAsync();
+            var resultList = await result
+                .OrderBy(f => f.Name)
+                .Include(f => f.Reviews) //similar with join -> if we want to use an entity wich is related we should include it
+                .Select(f => CourseWithNumberOfReviews.FromCourse(f))
+                .ToListAsync();
             return resultList;
         }
 
@@ -55,16 +60,19 @@ namespace CoursesApp.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Course>> GetCourse(long id)
+        public async Task<ActionResult<CourseDetails>> GetCourse(long id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _context
+                .Courses
+                .Include(f => f.Reviews)
+                .FirstOrDefaultAsync(f => f.Id == id);
 
             if (course == null)
             {
                 return NotFound("Course does not exist!");
             }
 
-            return course;
+            return CourseDetails.FromCourse(course);
         }
 
         // PUT: api/Courses/5
