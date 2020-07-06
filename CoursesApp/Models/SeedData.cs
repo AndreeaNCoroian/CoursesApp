@@ -17,46 +17,25 @@ namespace CoursesApp.Models
             {
  
                 //Looks for any Course
-                if (context.Courses.Any())
+                if (context.Courses.Count() >= 200)
                 {
                     return;   // DB table has been seeded
                 }
 
-                context.Courses.AddRange(
-                    new Course
-                    {
-                        Name = "Commercial Photography: Still and Moving Image",
-                        Category = Category.Photography,
-                        Difficulty = Difficulty.Intermediate,
-                        DurationInMin = 120,
-                        DateAdded = DateTime.Parse("2020-1-01"),
-                        StartDate = DateTime.Parse("2020-1-15"),
-                        EndDate = DateTime.Parse("2020-5-20")
-                    },
-
-                    new Course
-                    {
-                        Name = "Cooking: Restaurant recipes at home",
-                        Category = Category.Culinary,
-                        Difficulty = Difficulty.Beginner,
-                        DurationInMin = 150,
-                        DateAdded = DateTime.Parse("2020-1-20"),
-                        StartDate = DateTime.Parse("2020-4-10"),
-                        EndDate = DateTime.Parse("2020-6-15")
-                    },
+                for (int i = 1; i <= 200; ++i)
+                {
+                    context.Courses.Add(
                        new Course
-                       {
-                           Name = "Android fundamentals",
-                           Category = Category.Technology,
-                           Difficulty = Difficulty.Beginner,
-                           DurationInMin = 1500,
-                           DateAdded = DateTime.Parse("2020-1-17"),
-                           StartDate = DateTime.Parse("2020-1-25"),
-                           EndDate = DateTime.Parse("2020-6-30")
-                       }
+                           {
+                               Name = $"Course-{i}",
+                               Category = Category.Technology,
+                               Difficulty = Difficulty.Beginner,
+                               DurationInMin = i,
+                               DateAdded = DateTime.Now
+                           }
+                       );
+                }
 
-
-                ); ; ; ; ; ; ;
                 context.SaveChanges();
             }
         }

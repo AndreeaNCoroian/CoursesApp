@@ -12,7 +12,6 @@ namespace CoursesApp.Models
             : base(options)
         {
         }
-
         
        // public DbSet<User> Users { get; set; }
     }

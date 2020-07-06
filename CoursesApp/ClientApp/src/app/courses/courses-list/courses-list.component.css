@@ -1,0 +1,15 @@
+table {
+    width:  100%;
+}
+
+th {
+    background-color: #91c3cc;
+    font-size: 16px;
+    color: black;
+}
+
+td {
+    font-size:15px;
+    color: black;
+   
+}

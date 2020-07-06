@@ -1,1 +1,81 @@
-<p>courses-edit works!</p>
+<p>
+    Add/Edit course
+</p>
+
+<mat-card class="example-card">
+    <form *ngIf="formGroup" [formGroup]="formGroup">
+        <div class="example-container">
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="name" type="text">
+
+                <mat-error *ngIf="formGroup.get('name').touched && formGroup.get('name').errors && formGroup.get('name').errors.required">
+                    Name required!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Category" formControlName="category" type="text">
+
+                <mat-error *ngIf="formGroup.get('category').touched && formGroup.get('category').errors && formGroup.get('category').errors.required">
+                    Category required!
+                </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field>
+                <input matInput placeholder="Difficulty" formControlName="difficulty" type="text">
+
+                <mat-error *ngIf="formGroup.get('difficulty').touched && formGroup.get('difficulty').errors && formGroup.get('difficulty').errors.required">
+                    Difficulty required!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Duration in minutes" formControlName="durationInMin" type="number">
+
+                <mat-error *ngIf="formGroup.get('durationInMin').touched && formGroup.get('durationInMin').errors && formGroup.get('durationInMin').errors.required">
+                    Duration in minutes required!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label> Date added</mat-label>
+                <input matInput [matDatepicker]="dpDateAdded" formControlName="dateAdded" />
+                <mat-datepicker-toggle matSuffix [for]="dpDateAdded"></mat-datepicker-toggle>
+                <mat-datepicker #dpDateAdded></mat-datepicker>
+
+                <mat-error *ngIf="formGroup.get('dateAdded').touched && formGroup.get('dateAdded').errors && formGroup.get('dateAdded').errors.required">
+                    Date added required!
+                </mat-error>
+            </mat-form-field>
+            
+
+            <mat-form-field>
+                <mat-label>Start date</mat-label>
+                <input matInput [matDatepicker]="dpStartDate" formControlName="startDate" />
+                <mat-datepicker-toggle matSuffix [for]="dpStartDate"></mat-datepicker-toggle>
+                <mat-datepicker #dpStartDate></mat-datepicker>
+
+                <!--<mat-error *ngIf="formGroup.get('startDate').touched && formGroup.get('startDate').errors && formGroup.get('startDate').errors.required">
+                    Start date required!
+                </mat-error>-->
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>End date</mat-label>
+                <input matInput [matDatepicker]="dpEndDate" formControlName="endDate" />
+                <mat-datepicker-toggle matSuffix [for]="dpEndDate"></mat-datepicker-toggle>
+                <mat-datepicker #dpEndDate></mat-datepicker>
+
+                <!--<mat-error *ngIf="formGroup.get('endDate').touched && formGroup.get('endDate').errors && formGroup.get('endDate').errors.required">
+                    End date required!
+                </mat-error>-->
+            </mat-form-field>
+
+        </div>
+        <div class="example-button-row">
+            <button mat-raised-button color="primary" (click)="save()">Save</button>
+            <button mat-raised-button color="primary" [routerLink]='routerLink'>Cancel</button>
+        </div>
+    </form>
+</mat-card>

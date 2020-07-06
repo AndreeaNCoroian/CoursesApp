@@ -12,7 +12,6 @@ namespace CoursesApp.Validators
 	{
 		public CourseValidator()
 		{
-			RuleFor(x => x.Id).NotNull();
 
 			RuleFor(x => x.DateAdded)
 				.LessThan(DateTime.Now)
@@ -21,10 +20,6 @@ namespace CoursesApp.Validators
 			RuleFor(x => x.Name)
 				.NotEmpty()
 				.WithMessage("Course name cannot be empty");
-
-			RuleFor(x => x.StartDate)
-				.GreaterThan(DateTime.Now)
-				.WithMessage("Start date for a course can't be greater than current date.");
 
 			RuleFor(x => x.DurationInMin)
 				.GreaterThan(0)

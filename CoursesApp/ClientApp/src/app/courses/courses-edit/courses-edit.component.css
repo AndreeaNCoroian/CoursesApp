@@ -1,0 +1,14 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.example-container > * {
+        width: 100%;}
+
+
+body {
+    background-image: none;
+}

@@ -68,6 +68,10 @@ namespace CoursesApp
             services
                 .AddMvc(options =>
                 {
+                    AuthorizationPolicy policy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme).RequireAuthenticatedUser().Build();
+
+                    options.Filters.Add(new Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter(policy));
+
                     options.EnableEndpointRouting = false;
                 });
 
@@ -134,8 +138,6 @@ namespace CoursesApp
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            
 
             app.UseEndpoints(endpoints =>
             {

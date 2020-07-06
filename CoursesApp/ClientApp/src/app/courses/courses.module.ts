@@ -1,14 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoursesEditComponent } from './courses-edit/courses-edit.component';
-import { CoursesListComponent } from './courses-list/courses-list.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+import { CoreModule } from '../core/core.module';
+import { AngularMaterialModule } from '../shared/angular-material.module';
+
+import { CoursesRoutingModule } from './courses-routing.module';
+import { CoursesService } from './courses.service';
 
 @NgModule({
-  declarations: [CoursesEditComponent, CoursesListComponent],
+    declarations: [CoursesRoutingModule.routedComponents],
   imports: [
-    CommonModule
-  ]
+      CommonModule,
+      CoursesRoutingModule,
+      AngularMaterialModule,
+      CoreModule,
+      FormsModule,
+      ReactiveFormsModule
+    ],
+    providers: [CoursesService]
+
 })
+
 export class CoursesModule { }

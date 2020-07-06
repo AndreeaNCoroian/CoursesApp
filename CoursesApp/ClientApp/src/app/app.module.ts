@@ -15,12 +15,16 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegistrationComponent },
+
+    { path: 'courses', loadChildren: './courses/courses.module#CoursesModule' },
+
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'counter', component: CounterComponent },
     { path: 'fetch-data', component: FetchDataComponent, },

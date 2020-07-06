@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CoursesApp.Models;
 using CoursesApp.ViewModels;
+using CoursesApp.ViewModels.Collections;
 
 namespace CoursesApp.Controllers
 {
@@ -27,11 +28,21 @@ namespace CoursesApp.Controllers
         /// </summary>
         /// <param name="from">Filter courses added from this date time (inclusive). Leave empty for no upper limit.</param>
         /// <param name="to">Filter courses added up to this date time (inclusive). Leave empty for no lower limit.</param>
+        /// <param name="page">The page of results, starting from 0.</param>
+        /// <param name="itemsPerPage">The number of items displayed per page.</param>
         /// <returns>A list of all courses.</returns>
         /// <response code="201">Returns the list of courses.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CourseWithNumberOfReviews>>> GetCourses(DateTime? from = null, DateTime? to = null)
+        public async Task<IActionResult> GetCourses(
+            [FromQuery] DateTime? from = null,
+            [FromQuery] DateTime? to = null,
+            [FromQuery] int page = 0,
+            [FromQuery] int itemsPerPage = 15)
+
         {
+
+            var identity = User.Identity;
+
             IQueryable<Course> result = _context.Courses;
             if (from != null)
             {
@@ -44,9 +55,15 @@ namespace CoursesApp.Controllers
             var resultList = await result
                 .OrderBy(f => f.Name)
                 .Include(f => f.Reviews) //similar with join -> if we want to use an entity wich is related we should include it
+                .Skip(page * itemsPerPage)
+                .Take(itemsPerPage)
                 .Select(f => CourseWithNumberOfReviews.FromCourse(f))
                 .ToListAsync();
-            return resultList;
+
+            var paginatedList = new PaginatedList<CourseWithNumberOfReviews>(page, await result.CountAsync(), itemsPerPage);
+            paginatedList.Items.AddRange(resultList);
+
+            return Ok(paginatedList);
         }
 
         // GET: api/Courses/5
