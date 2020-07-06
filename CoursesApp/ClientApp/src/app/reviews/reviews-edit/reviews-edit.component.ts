@@ -70,7 +70,7 @@ export class ReviewsEditComponent implements OnInit {
 
     initForm(review: Review) {
         this.formGroup = this.formBuilder.group({
-            text: [review.Content, Validators.required],
+            content: [review.Content, Validators.required],
             courseId: [review.CourseId, Validators.required]
         });
     }

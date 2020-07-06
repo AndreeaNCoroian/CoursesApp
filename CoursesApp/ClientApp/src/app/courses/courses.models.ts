@@ -25,3 +25,21 @@ export enum Difficulty {
     Intermediate = 1,
     Advanced = 2
 }
+
+export interface Review {
+    id: number;
+    content: string,
+
+}
+
+export interface CourseWithDetails {
+    id: number;
+    name: string;
+    category: Category;
+    difficulty: Difficulty;
+    durationInMin: number;
+    dateadded: Date;
+    startdate: Date;
+    endDate: Date;
+    review: Review[];
+}

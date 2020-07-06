@@ -13,7 +13,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { CourseDetailsComponent } from './course-details/course-details.component';
+import { CoursesDetailsComponent } from './courses-details/courses-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { LoginComponent } from './login/login.component';
@@ -27,12 +27,11 @@ const routes: Routes = [
 
     { path: 'reviews', loadChildren: './reviews/reviews.module#ReviewsModule' },
 
-    { path: 'fetch-data/:courseId', loadChildren: './course/course.module#CoursesModule' },
 
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'counter', component: CounterComponent },
     { path: 'fetch-data', component: FetchDataComponent, },
-    { path: 'fetch-data/:courseId', component: CourseDetailsComponent }
+   // { path: 'fetch-data/:courseId', component: CoursesDetailsComponent }
 ]
 @NgModule({
   declarations: [
@@ -41,7 +40,7 @@ const routes: Routes = [
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    CourseDetailsComponent,
+    CoursesDetailsComponent,
     RegistrationComponent,
     LoginComponent
   ],
