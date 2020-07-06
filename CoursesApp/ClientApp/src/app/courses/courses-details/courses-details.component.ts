@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-course-details',
-  templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.css']
+    selector: 'app-course-details',
+    templateUrl: './course-details.component.html',
+    styleUrls: ['./course-details.component.css']
 })
 export class CourseDetailsComponent implements OnInit {
 
@@ -18,7 +18,7 @@ export class CourseDetailsComponent implements OnInit {
         private route: ActivatedRoute) {
     }
 
-    loadCourse(courseId: string) {
+    loadCourseDetails(courseId: string) {
         this.http.get<CourseWithDetails>(this.baseUrl + 'api/Courses/' + courseId).subscribe(result => {
             this.course = result;
             console.log(this.course);
@@ -27,7 +27,7 @@ export class CourseDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.route.paramMap.subscribe(params => {
-            this.loadCourse(params.get('courseId'));
+            this.loadCourseDetails(params.get('courseId'));
         });
     }
 
@@ -36,7 +36,7 @@ export class CourseDetailsComponent implements OnInit {
 interface Review {
     id: number;
     content: string,
-   
+
 }
 
 interface CourseWithDetails {

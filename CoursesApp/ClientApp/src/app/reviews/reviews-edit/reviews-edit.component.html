@@ -1,0 +1,30 @@
+<p>
+    Add/Edit a review
+</p>
+
+<mat-card class="example-card">
+    <form *ngIf="formGroup" [formGroup]="formGroup">
+        <div class="example-container">
+            <mat-form-field>
+                <input matInput placeholder="Content" formControlName="content" type="text">
+
+                <mat-error *ngIf="formGroup.get('content').touched && formGroup.get('content').errors && formGroup.get('content').errors.required">
+                    Text required!
+                </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <input matInput placeholder="Course Id" formControlName="courseId" type="number">
+
+                <mat-error *ngIf="formGroup.get('courseId').touched && formGroup.get('courseId').errors && formGroup.get('courseId').errors.required">
+                    Id required!
+                </mat-error>
+            </mat-form-field>
+
+        </div>
+        <div class="example-button-row">
+            <button mat-raised-button color="primary" (click)="save()">Save</button>
+            <button mat-raised-button color="primary" [routerLink]='routerLink'>Cancel</button>
+        </div>
+    </form>
+</mat-card>

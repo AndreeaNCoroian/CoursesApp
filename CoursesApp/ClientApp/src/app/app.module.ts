@@ -25,6 +25,10 @@ const routes: Routes = [
 
     { path: 'courses', loadChildren: './courses/courses.module#CoursesModule' },
 
+    { path: 'reviews', loadChildren: './reviews/reviews.module#ReviewsModule' },
+
+    { path: 'fetch-data/:courseId', loadChildren: './course/course.module#CoursesModule' },
+
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'counter', component: CounterComponent },
     { path: 'fetch-data', component: FetchDataComponent, },
